@@ -1,19 +1,18 @@
-#
-# https://packaging.python.org/en/latest/tutorials/packaging-projects
-#
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
-
 [project]
 name = "ytr2md"
 version = "0.1.0"
 description = "A Python CLI tool to format YouTube video transcripts to Markdown"
-authors = [{ name = "thelumberjhack", email = "thelumberjhack@proton.me" }]
+authors = [
+    { name = "thelumberjhack", email = "5294889+thelumberjhack@users.noreply.github.com" }
+]
+dependencies = [
+    "youtube-transcript-api>=0.6.2",
+    "rich>=13.7.1",
+    "click>=8.1.7",
+]
 readme = "README.md"
-requires-python = ">=3.10.0"
-license = { file = "LICENSE" }
+requires-python = ">= 3.10"
+license = { text = "MIT" }
 keywords = [
   "YouTube", "transcript", "download", "markdown", "obsidian"
 ]
@@ -29,9 +28,18 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 
-dependencies = [
-  "youtube-transcript-api",
-  "requests",
+[project.scripts]
+"ytr2md" = "ytr2md.__main__:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "ruff>=0.3.5",
+    "pre-commit>=3.7.0",
 ]
 
 [project.urls]
