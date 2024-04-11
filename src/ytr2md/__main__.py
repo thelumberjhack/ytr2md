@@ -1,6 +1,6 @@
 """ entry point for the ytr2md package """
 import sys
 
-from .Ytr2Md import Ytr2MdCLI
+from .Ytr2Md import main
 
-sys.exit(Ytr2MdCLI.main())
+sys.exit(main())

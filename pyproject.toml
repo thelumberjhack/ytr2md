@@ -7,7 +7,6 @@ authors = [
 ]
 dependencies = [
     "youtube-transcript-api>=0.6.2",
-    "httpx[http2]>=0.27.0",
     "rich>=13.7.1",
     "click>=8.1.7",
 ]
