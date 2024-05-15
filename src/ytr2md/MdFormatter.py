@@ -1,12 +1,13 @@
 """Module providing a Markdown formatter for the youtube_transcript_api."""
-import string
+
 from youtube_transcript_api.formatters import Formatter
 
 
 class MarkDownFormatter(Formatter):
     """Markdown formatter for the youtube_transcript_api."""
+
     @staticmethod
-    def format_timestamp(start: string) -> string:
+    def format_timestamp(start: str) -> str:
         """Format the start timestamp to HH:mm:ss.
 
         Args:
@@ -24,10 +25,10 @@ class MarkDownFormatter(Formatter):
     def format_transcript(self, transcript, **kwargs):
         lines = []
         for line in transcript:
-            start = int(line['start'])
-            start_ts = self.format_timestamp(line['start'])
+            start = int(line["start"])
+            start_ts = self.format_timestamp(line["start"])
             timestamp = f"[{start_ts}](https://youtu.be/{kwargs['video_id']}?t={start})"
-            text = f"> {line['text'].strip()}"
+            text = f"> {line['text'].strip().replace('\n', ' ')}"
 
             lines.append(f"{timestamp}\n{text}")
         return "\n\n".join(lines)
