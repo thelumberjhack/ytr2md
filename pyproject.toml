@@ -1,6 +1,6 @@
 [project]
 name = "ytr2md"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Python CLI tool to format YouTube video transcripts to Markdown"
 authors = [
     { name = "thelumberjhack", email = "5294889+thelumberjhack@users.noreply.github.com" }
@@ -12,7 +12,7 @@ dependencies = [
 ]
 readme = "README.md"
 requires-python = ">= 3.10"
-license = { text = "MIT" }
+license = "MIT"
 keywords = [
   "YouTube", "transcript", "download", "markdown", "obsidian"
 ]
@@ -21,6 +21,8 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Topic :: Text Processing :: Markup :: Markdown",
   "Topic :: Utilities",
   "Natural Language :: English",
