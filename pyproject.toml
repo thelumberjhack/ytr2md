@@ -1,6 +1,6 @@
 [project]
 name = "ytr2md"
-version = "0.2.0"
+version = "0.2.1"
 description = "A Python CLI tool to format YouTube video transcripts to Markdown"
 authors = [
     { name = "thelumberjhack", email = "5294889+thelumberjhack@users.noreply.github.com" }
