@@ -6,6 +6,8 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
+#   universal: false
 
 -e file:.
 certifi==2024.2.2
@@ -16,8 +18,6 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via ytr2md
-colorama==0.4.6
-    # via click
 distlib==0.3.8
     # via virtualenv
 filelock==3.13.4

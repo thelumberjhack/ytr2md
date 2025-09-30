@@ -17,9 +17,8 @@ With that being said...
 ```shell
 git clone git@github.com:thelumberjhack/ytr2md.git
 cd ytr2md
-rye init
-rye sync
-rye run ytr2md get <video_id>
+uv sync
+uv run ytr2md get <video_id>
 ```
 
 ## Usage
@@ -41,9 +40,34 @@ Commands:
 ```shell
 Usage: ytr2md get [OPTIONS] VIDEO_ID
 
-  Download and format the transcript of a YouTube video.                                  
+  Download and format the transcript of a YouTube video.
 Options:
   --help  Show this message and exit.
+```
+
+## Development
+
+Set up the project with dev tooling (pytest, ruff, pre-commit):
+
+```shell
+uv sync
+uv run pre-commit install
+```
+
+Useful commands:
+
+```shell
+uv run pytest                 # run tests
+uv run ruff check .           # lint
+uv run ruff check --fix .     # auto-fix lint
+uv run ruff format .          # format
+uv run pre-commit run --all-files  # run hooks on all files
+```
+
+Run the CLI locally during development:
+
+```shell
+uv run ytr2md get <video_id>
 ```
 
 ## Credits
