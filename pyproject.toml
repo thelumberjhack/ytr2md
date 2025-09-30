@@ -42,6 +42,12 @@ dev-dependencies = [
     "pre-commit>=3.7.0",
 ]
 
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "ruff>=0.13.2",
+]
+
 [project.urls]
 Repository = "https://github.com/thelumberjhack/ytr2md"
 Changelog = "https://github.com/thelumberjhack/ytr2md/releases"

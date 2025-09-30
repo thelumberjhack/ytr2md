@@ -3,11 +3,11 @@
 from youtube_transcript_api.formatters import Formatter
 
 
-class MarkDownFormatter(Formatter):
+class MarkdownFormatter(Formatter):
     """Markdown formatter for the youtube_transcript_api."""
 
     @staticmethod
-    def format_timestamp(start: str) -> str:
+    def format_timestamp(start: float | int | str) -> str:
         """Format the start timestamp to HH:mm:ss.
 
         Args:
@@ -25,13 +25,23 @@ class MarkDownFormatter(Formatter):
     def format_transcript(self, transcript, **kwargs):
         lines = []
         for line in transcript:
-            start = int(line["start"])
-            start_ts = self.format_timestamp(line["start"])
+            if isinstance(line, dict):
+                start_raw = line["start"]
+                text_raw = line["text"]
+            else:
+                start_raw = getattr(line, "start")
+                text_raw = getattr(line, "text")
+            start = int(start_raw)
+            start_ts = self.format_timestamp(start_raw)
             timestamp = f"[{start_ts}](https://youtu.be/{kwargs['video_id']}?t={start})"
-            text = f"> {line['text'].strip().replace('\n', ' ')}"
-
+            cleaned = str(text_raw).strip().replace("\n", " ")
+            text = f"> {cleaned}"
             lines.append(f"{timestamp}\n{text}")
         return "\n\n".join(lines)
 
     def format_transcripts(self, transcripts, **kwargs):
         return self.format_transcript(transcripts, **kwargs)
+
+
+# Backward compatibility alias (planned removal in a future minor release)
+MarkDownFormatter = MarkdownFormatter
