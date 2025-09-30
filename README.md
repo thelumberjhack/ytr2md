@@ -17,9 +17,8 @@ With that being said...
 ```shell
 git clone git@github.com:thelumberjhack/ytr2md.git
 cd ytr2md
-rye init
-rye sync
-rye run ytr2md get <video_id>
+uv sync
+uv run ytr2md get <video_id>
 ```
 
 ## Usage
