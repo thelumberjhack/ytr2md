@@ -1,5 +1,6 @@
 import logging
 import os
+import urllib.parse
 from pathlib import Path
 
 import click
@@ -45,6 +46,22 @@ def cli(ctx, verbose, output):
     )
 
 
+def normalize_video_id(raw: str) -> str:
+    """Extract the canonical video id from common YouTube URL forms.
+
+    If the input already looks like an id, return as-is.
+    """
+    if "youtube.com" in raw or "youtu.be" in raw:
+        parsed = urllib.parse.urlparse(raw)
+        if parsed.netloc.endswith("youtu.be"):
+            candidate = parsed.path.lstrip("/")
+            return candidate or raw
+        query = urllib.parse.parse_qs(parsed.query)
+        if "v" in query:
+            return query["v"][0]
+    return raw
+
+
 def fetch_manual_transcript(video_id: str):
     """Fetch manually created English transcript.
 
@@ -68,19 +85,21 @@ def fetch_manual_transcript(video_id: str):
 @click.pass_context
 def get(ctx, video_id):  # type: ignore[unused-argument]
     """Download and format the transcript of a YouTube video."""
-    output = ctx.obj["output"]
+    original_input = video_id
+    video_id = normalize_video_id(video_id)
+    output = Path(ctx.obj["output"]).expanduser().resolve()
     logger.info(f"Fetching transcript for video '{video_id}'...")
     try:
         tr = fetch_manual_transcript(video_id)
         formatter = MarkdownFormatter()
         tr_md = formatter.format_transcript(tr.fetch(), video_id=video_id)
 
-        with open(
-            os.path.join(output, f"{video_id}.md"), "w", encoding="utf-8"
-        ) as out_file:
+        with open(output / f"{video_id}.md", "w", encoding="utf-8") as out_file:
             out_file.write(tr_md)
 
         logger.info(f"Transcript written to '{output}'.")
+        if original_input != video_id:
+            logger.info(f"(Extracted video id from input '{original_input}')")
         return 0
     except NoTranscriptFound as err:
         logger.debug(err, exc_info=True)
