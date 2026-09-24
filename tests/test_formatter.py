@@ -1,4 +1,4 @@
-from ytr2md.MdFormatter import MarkDownFormatter
+from ytr2md.md_formatter import MarkDownFormatter
 
 
 def test_format_timestamp_basic_cases():

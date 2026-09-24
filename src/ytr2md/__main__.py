@@ -2,6 +2,6 @@
 
 import sys
 
-from .Ytr2Md import main
+from .cli import main
 
 sys.exit(main())

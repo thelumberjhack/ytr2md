@@ -6,14 +6,14 @@ from pathlib import Path
 import click
 from rich.logging import RichHandler
 from youtube_transcript_api import (
-    YouTubeTranscriptApi,
-    TranscriptsDisabled,
-    NoTranscriptFound,
     CouldNotRetrieveTranscript,
+    NoTranscriptFound,
     Transcript,
+    TranscriptsDisabled,
+    YouTubeTranscriptApi,
 )
 
-from ytr2md.MdFormatter import MarkdownFormatter
+from ytr2md.md_formatter import MarkdownFormatter
 
 # Setting up logging
 FORMAT = "%(message)s"

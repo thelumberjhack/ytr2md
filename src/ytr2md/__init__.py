@@ -1,3 +1,3 @@
-from .MdFormatter import MarkdownFormatter, MarkDownFormatter  # backward compatibility
+from .md_formatter import MarkDownFormatter, MarkdownFormatter  # backward compatibility
 
-__all__ = ["MarkdownFormatter", "MarkDownFormatter"]
+__all__ = ["MarkDownFormatter", "MarkdownFormatter"]

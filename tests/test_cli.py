@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from click.testing import CliRunner
 
-from ytr2md.Ytr2Md import cli, normalize_video_id
+from ytr2md.cli import cli, normalize_video_id
 
 
 class DummyTranscript:
@@ -37,7 +37,7 @@ class DummyApi:
 
 def patch_api(monkeypatch, transcript_list):
     """Patch the module's YouTubeTranscriptApi with a dummy instance-based API."""
-    import ytr2md.Ytr2Md as mod
+    import ytr2md.cli as mod
 
     monkeypatch.setattr(mod, "YouTubeTranscriptApi", lambda: DummyApi(transcript_list))
 
@@ -108,10 +108,10 @@ def test_cli_default_output_is_cwd(monkeypatch, tmp_path: Path, runner: CliRunne
     sample = [{"start": 0.0, "duration": 1.0, "text": "Hello"}]
 
     patch_api(monkeypatch, DummyTranscriptList(DummyTranscript(sample)))
-    with runner.isolated_filesystem(temp_dir=tmp_path):
-        result = runner.invoke(cli, ["get", "AbCdEfGhIjk"])
-        assert result.exit_code == 0
-        assert Path("AbCdEfGhIjk.md").exists()
+    monkeypatch.chdir(tmp_path)
+    result = runner.invoke(cli, ["get", "AbCdEfGhIjk"])
+    assert result.exit_code == 0
+    assert (tmp_path / "AbCdEfGhIjk.md").exists()
 
 
 def test_cli_no_transcript(monkeypatch, tmp_path: Path, runner: CliRunner):

@@ -7,7 +7,7 @@ class MarkdownFormatter(Formatter):
     """Markdown formatter for the youtube_transcript_api."""
 
     @staticmethod
-    def format_timestamp(start: float | int | str) -> str:
+    def format_timestamp(start: float | str) -> str:
         """Format the start timestamp to HH:mm:ss.
 
         Args:
@@ -29,8 +29,8 @@ class MarkdownFormatter(Formatter):
                 start_raw = line["start"]
                 text_raw = line["text"]
             else:
-                start_raw = getattr(line, "start")
-                text_raw = getattr(line, "text")
+                start_raw = line.start
+                text_raw = line.text
             start = int(float(start_raw))
             start_ts = self.format_timestamp(start_raw)
             timestamp = f"[{start_ts}](https://youtu.be/{kwargs['video_id']}?t={start})"
