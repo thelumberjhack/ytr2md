@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.3.0] - 2026-09-24
 ### Changed
 - Target `youtube-transcript-api` 1.x exclusively (dependency floor raised to `>=1.0`; the old `>=0.6.2` floor was broken — `CouldNotRetrieveTranscript` does not exist in 0.6.x).
 - `get` now validates the video id / URL up front and exits with a friendly message instead of an opaque API error.
