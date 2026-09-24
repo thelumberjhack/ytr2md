@@ -9,6 +9,7 @@ def test_format_timestamp_basic_cases():
     assert fmt.format_timestamp(60) == "00:01:00"
     assert fmt.format_timestamp(3599) == "00:59:59"
     assert fmt.format_timestamp(3661) == "01:01:01"
+    assert fmt.format_timestamp("12.4") == "00:00:12"
 
 
 def test_format_transcript_single_line():
@@ -20,6 +21,15 @@ def test_format_transcript_single_line():
     assert output.startswith(
         "[00:00:12](https://youtu.be/VIDEOID12345?t=12)\n> Hello World"
     )
+
+
+def test_format_transcript_string_timestamp():
+    transcript = [
+        {"start": "12.4", "duration": 3.5, "text": "Hello"},
+    ]
+    fmt = MarkDownFormatter()
+    output = fmt.format_transcript(transcript, video_id="VIDEOID12345")
+    assert output.startswith("[00:00:12](https://youtu.be/VIDEOID12345?t=12)")
 
 
 def test_format_transcript_multiline_and_newline_stripping():

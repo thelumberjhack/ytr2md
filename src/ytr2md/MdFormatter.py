@@ -22,7 +22,7 @@ class MarkdownFormatter(Formatter):
         seconds = int(start_time % 60)
         return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
-    def format_transcript(self, transcript, **kwargs):
+    def format_transcript(self, transcript, **kwargs) -> str:
         lines = []
         for line in transcript:
             if isinstance(line, dict):
@@ -31,7 +31,7 @@ class MarkdownFormatter(Formatter):
             else:
                 start_raw = getattr(line, "start")
                 text_raw = getattr(line, "text")
-            start = int(start_raw)
+            start = int(float(start_raw))
             start_ts = self.format_timestamp(start_raw)
             timestamp = f"[{start_ts}](https://youtu.be/{kwargs['video_id']}?t={start})"
             cleaned = str(text_raw).strip().replace("\n", " ")
@@ -39,7 +39,7 @@ class MarkdownFormatter(Formatter):
             lines.append(f"{timestamp}\n{text}")
         return "\n\n".join(lines)
 
-    def format_transcripts(self, transcripts, **kwargs):
+    def format_transcripts(self, transcripts, **kwargs) -> str:
         return self.format_transcript(transcripts, **kwargs)
 
 
